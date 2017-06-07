@@ -30,10 +30,13 @@ namespace DesktopLauncher
     {
         private List<ILaunchable> entries = new List<ILaunchable>();
         private HotKey.HotKey hotKey;
+        private double initialHeight;
+        private const double candidatesHeight = 150.0;
 
         public MainWindow()
         {
             InitializeComponent();
+            initialHeight = Height;
         }        
 
         private void HideLauncher()
@@ -145,7 +148,7 @@ namespace DesktopLauncher
             if(text.Length == 0)
             {
                 Candidates.Height = 0.0;
-                Height = 85.0;
+                Height = initialHeight;
 
                 Candidates.DataContext = null;
                 return;
@@ -158,8 +161,8 @@ namespace DesktopLauncher
             Candidates.DataContext = candidates.Distinct();
             Candidates.SelectedIndex = 0;
 
-            Candidates.Height = 150.0;
-            Height = 85.0 + Candidates.Height + 10.0;
+            Candidates.Height = candidatesHeight;
+            Height = initialHeight + Candidates.Height + Candidates.Margin.Bottom;
         }       
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
