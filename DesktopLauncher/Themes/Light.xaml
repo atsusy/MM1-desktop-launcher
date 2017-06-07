@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DesktopLauncher.Themes">
+    <SolidColorBrush x:Key="ForegroundColor">#FF101010</SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundColor">#FFF0F2F2</SolidColorBrush>
+    <SolidColorBrush x:Key="SubforegroundColor">Gray</SolidColorBrush>
+</ResourceDictionary>
