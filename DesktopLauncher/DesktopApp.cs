@@ -54,9 +54,9 @@ namespace DesktopLauncher
                         {
                             desktopApps.Add(new DesktopApp(name, file));
                         }
-                        catch
+                        catch(Exception ex)
                         {
-
+                            Debug.WriteLine(string.Format("Failure to add desktop app:{0}\n{1}", file, ex.ToString()));
                         }
                     }
                 }
@@ -67,12 +67,11 @@ namespace DesktopLauncher
                 var name = Path.GetFileNameWithoutExtension(file);
                 try
                 {
-
                     desktopApps.Add(new DesktopApp(name, file));
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    Debug.WriteLine(string.Format("Failure to add desktop app:{0}\n{1}", file, ex.ToString()));
                 }
             }
 
@@ -84,12 +83,27 @@ namespace DesktopLauncher
 
         private DesktopApp(string name, string executionPath)
         {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("name");
+            }
+
+            if (String.IsNullOrEmpty(executionPath))
+            {
+                throw new ArgumentException("executionPath");
+            }
+
             this.name = name;
 
             if(Path.GetExtension(executionPath) == ".lnk")
             {
-                executionPath = new ShellLink(executionPath).TargetPath;
+                var targetPath = new ShellLink(executionPath).TargetPath;
+                if (targetPath != null && targetPath.Length > 0)
+                {
+                    executionPath = targetPath;
+                }
             }
+
             this.executionPath = executionPath;
         }
 
