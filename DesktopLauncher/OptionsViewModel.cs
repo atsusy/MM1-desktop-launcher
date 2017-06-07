@@ -38,16 +38,16 @@ namespace DesktopLauncher
             HotKeyWin = (modifiers & ModifierKeys.Windows) == ModifierKeys.Windows;
 
             Aliases = new ObservableCollection<AliasViewModel>();
-            foreach(var uriLauncher in UriLauncher.FindAllUriLaunchers())
+            foreach (var uriLauncher in UriLauncher.FindAllUriLaunchers())
             {
                 Aliases.Add(new AliasViewModel(uriLauncher));
             }
 
             ExtraFolders = new ObservableCollection<ExtraFolderViewModel>();
-            if(settings.ExtraFolders != null) {
+            if (settings.ExtraFolders != null) {
                 foreach (var extraFolder in settings.ExtraFolders)
                 {
-                    if(extraFolder.Length > 0 && Directory.Exists(extraFolder))
+                    if (extraFolder.Length > 0 && Directory.Exists(extraFolder))
                     {
                         ExtraFolders.Add(new ExtraFolderViewModel(extraFolder));
                     }
@@ -99,6 +99,21 @@ namespace DesktopLauncher
             set;
         }
 
+        public string HotKeyDescription
+        {
+            get
+            {
+                List<String> keys = new List<string>();
+                if (HotKeyControl) { keys.Add("Ctrl"); }
+                if (HotKeyShift) { keys.Add("Shift"); }
+                if (HotKeyAlt) { keys.Add("Alt"); }
+                if (HotKeyWin) { keys.Add("Win"); }
+
+                keys.Add(HotKeysDictionary[HotKey]);
+                return string.Join("+", keys.ToArray());
+            }
+        }
+
         [Bindable(true)]
         public ObservableCollection<AliasViewModel> Aliases
         {
@@ -116,22 +131,29 @@ namespace DesktopLauncher
         public IReadOnlyList<KeyValuePair<string, string>> HotKeyItems
         {
             get
-            {
-                var resourceManager = Properties.HotKeys.ResourceManager;
-                var resourceSet = resourceManager.GetResourceSet(
-                    CultureInfo.CurrentCulture, 
-                    true, 
-                    true
-                ).Cast<DictionaryEntry>();
-                return resourceSet
-                    .ToDictionary(r => r.Key.ToString(), r => r.Value.ToString())
+            {               
+                return HotKeysDictionary
                     .ToList()
                     .OrderBy(item => item.Value)
                     .ToList()
-                    .AsReadOnly();                
+                    .AsReadOnly();
             }
         }
 
+        public Dictionary<string, string> HotKeysDictionary
+        {
+            get
+            {
+                var resourceManager = Properties.HotKeys.ResourceManager;
+                var resourceSet = resourceManager.GetResourceSet(
+                    CultureInfo.CurrentCulture,
+                        true,
+                        true
+                    ).Cast<DictionaryEntry>();
+                return resourceSet
+                    .ToDictionary(r => r.Key.ToString(), r => r.Value.ToString());
+            }            
+        }
  
         public void Save()
         {

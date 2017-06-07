@@ -39,6 +39,11 @@ namespace DesktopLauncher
             initialHeight = Height;
         }        
 
+        private void ShowLauncher()
+        { 
+            Show();
+        }
+
         private void HideLauncher()
         {
             InputText.Text = "";
@@ -77,6 +82,8 @@ namespace DesktopLauncher
             {
                 MessageBox.Show("Hot-key is already in use. Please use another key.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+            (NotifyIcon.ContextMenu.Items[0] as MenuItem).InputGestureText = new OptionsViewModel().HotKeyDescription;
         }
 
         private void SaveOptions()
@@ -111,7 +118,7 @@ namespace DesktopLauncher
             }
             else
             {
-                Show();
+                ShowLauncher();
             }
         }
 
@@ -229,10 +236,15 @@ namespace DesktopLauncher
             await Rescan();
         }
 
-        private void Shutdown_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             SaveOptions();
             App.Current.Shutdown();
+        }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            ShowLauncher();
         }
     }
 }

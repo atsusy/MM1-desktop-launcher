@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopLauncher"
         xmlns:ind="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow"
         Width="400" 
@@ -21,10 +23,20 @@
         Loaded="Window_Loaded"
         PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
     <Window.Resources>
-        <ContextMenu x:Key="ContextMenu" Placement="MousePoint">
+        <ContextMenu x:Key="TextBoxContextMenu">
+            <MenuItem Command="ApplicationCommands.Cut" />
+            <MenuItem Command="ApplicationCommands.Copy" />
+            <MenuItem Command="ApplicationCommands.Paste" />
+            <Separator />
             <MenuItem Header="Options" Click="Options_Click" />
             <MenuItem Header="Rescan" Click="Rescan_Click" />
-            <MenuItem Header="Exit" Click="Shutdown_Click" />
+            <MenuItem Header="Exit Launcher" Click="Exit_Click" />
+        </ContextMenu>
+        <ContextMenu x:Key="TaskbarContextMenu">
+            <MenuItem Header="Show Launcher" Click="Show_Click" />
+            <MenuItem Header="Options" Click="Options_Click" />
+            <MenuItem Header="Rescan" Click="Rescan_Click" />
+            <MenuItem Header="Exit Launcher" Click="Exit_Click" />
         </ContextMenu>
         <Style x:Key="CandidatesHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -48,25 +60,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    <Border BorderBrush="{DynamicResource BackgroundColor}" BorderThickness="4" CornerRadius="3,3,3,3" Margin="14" ContextMenu="{StaticResource ContextMenu}">
+    <Border x:Name="RootContent" BorderBrush="{DynamicResource BackgroundColor}" BorderThickness="4" CornerRadius="3,3,3,3" Margin="14">
         <Border.Effect>
             <DropShadowEffect BlurRadius="6" Direction="-90" RenderingBias="Performance" ShadowDepth="2" Opacity="0.4"/>
         </Border.Effect>
+        
         <StackPanel Background="{DynamicResource BackgroundColor}">
+            <tb:TaskbarIcon x:Name="NotifyIcon" IconSource="/Icons/64x64.ico" MenuActivation="LeftOrRightClick" ContextMenu="{StaticResource TaskbarContextMenu}">
+            </tb:TaskbarIcon>
             <Grid>
-                <TextBox x:Name="InputText" Foreground="{DynamicResource ForegroundColor}" CaretBrush="{DynamicResource ForegroundColor}" Background="Transparent" BorderThickness="0" FontSize="30" Margin="5" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" KeyDown="TextBox_KeyDown" TextChanged="InputText_TextChanged" PreviewMouseDown="InputText_PreviewMouseDown">
-                    <TextBox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Command="ApplicationCommands.Cut" />
-                            <MenuItem Command="ApplicationCommands.Copy" />
-                            <MenuItem Command="ApplicationCommands.Paste" />
-                            <Separator />
-                            <MenuItem Header="Options" Click="Options_Click" />
-                            <MenuItem Header="Rescan" Click="Rescan_Click" />
-                            <MenuItem Header="Exit" Click="Shutdown_Click" />
-                        </ContextMenu>
-                    </TextBox.ContextMenu>
+                <TextBox x:Name="InputText" Foreground="{DynamicResource ForegroundColor}" CaretBrush="{DynamicResource ForegroundColor}" Background="Transparent" BorderThickness="0" FontSize="30" Margin="5" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" KeyDown="TextBox_KeyDown" TextChanged="InputText_TextChanged" PreviewMouseDown="InputText_PreviewMouseDown" ContextMenu="{StaticResource TextBoxContextMenu}">
                 </TextBox>
                 <ind:LoadingIndicator x:Name="LoadingIndicator" IsActive="False" SpeedRatio="1.0" Style="{DynamicResource LoadingIndicatorThreeDotsStyle}" />
             </Grid>
