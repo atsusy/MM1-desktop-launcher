@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DesktopLauncher.Extensions;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace DesktopLauncher
 {
@@ -23,6 +25,7 @@ namespace DesktopLauncher
         public OptionsWindows()
         {
             InitializeComponent();
+            ApplicationTitle.Content = string.Format(ApplicationTitle.Content as string, Assembly.GetExecutingAssembly().GetName().Version);
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)
@@ -80,6 +83,12 @@ namespace DesktopLauncher
             {
                 HotKey.SelectedValue = key;
             }
+        }
+
+        private void RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

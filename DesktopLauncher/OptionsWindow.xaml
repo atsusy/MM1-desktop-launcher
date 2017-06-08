@@ -69,6 +69,35 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+            <TabItem Header="About" HorizontalAlignment="Left">
+
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23*" />
+                        <RowDefinition Height="51*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10,10,-0.2,0" Height="50" >
+                        <Image Height="48" Width="48" Source="Icons/128x128.ico" VerticalAlignment="Center" />
+                        <StackPanel Orientation="Vertical" Margin="8,-4,0,0">
+                            <Label x:Name="ApplicationTitle" Content="MM1 desktop launcher {0}" FontWeight="Bold" FontSize="20" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                            <Label Content="Copyright (C) 2017 MARSHMALLOW MACHINE Inc." FontSize="10" Margin="2,-8,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="1">
+                        <Label Content="Acknowledgements" FontSize="14" Margin="5,0,0,0" />
+                        <TextBlock Text="LoadingIndicators.WPF" Margin="10,0,0,0"/>
+                        <TextBlock Margin="10,0,0,10">
+                            <Hyperlink Hyperlink.RequestNavigate="RequestNavigate" NavigateUri="https://github.com/100GPing100/LoadingIndicators.WPF">https://github.com/100GPing100/LoadingIndicators.WPF</Hyperlink>
+                        </TextBlock>
+                        <TextBlock Text="Hardcodet.NotifyIcon.Wpf" Margin="10,0,0,0"/>
+                        <TextBlock Margin="10,0,0,0">
+                            <Hyperlink Hyperlink.RequestNavigate="RequestNavigate" NavigateUri="http://www.hardcodet.net/projects/wpf-notifyicon">http://www.hardcodet.net/projects/wpf-notifyicon</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
         </TabControl>
         <Button Content="OK" Margin="0,0,101.6,10.4" Width="75" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="OK_Click"/>
         <Button Content="Cancel" Margin="0,0,9.6,10.4" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Cancel_Click" Grid.ColumnSpan="2"/>
