@@ -11,7 +11,6 @@ namespace DesktopLauncher
     {
         string Id { get; }
         string Name { get; }
-        string AliasName { get; }
         ImageSource Icon { get; }
 
         void LaunchAsync(string parameters);

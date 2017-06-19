@@ -14,8 +14,10 @@
         SourceInitialized="Window_SourceInitialized" Loaded="Window_Loaded">
     <Window.Resources>
         <local:OptionsViewModel x:Key="ViewModel" />
-        <CollectionViewSource x:Key="optionsViewModelAliasesViewSource" Source="{Binding Aliases, Source={StaticResource ViewModel}}"/>
-        <CollectionViewSource x:Key="optionsViewModelExtraFoldersViewSource" Source="{Binding ExtraFolders, Source={StaticResource ViewModel}}"/>
+        <CollectionViewSource x:Key="AppsViewSource" Source="{Binding Apps, Source={StaticResource ViewModel}}"/>
+        <CollectionViewSource x:Key="AliasesViewSource" Source="{Binding Aliases, Source={StaticResource ViewModel}}"/>
+        <CollectionViewSource x:Key="CustomURIsViewSource" Source="{Binding CustomURIs, Source={StaticResource ViewModel}}"/>
+        <CollectionViewSource x:Key="ExtraFoldersViewSource" Source="{Binding ExtraFolders, Source={StaticResource ViewModel}}"/>
         <local:BoolConverter x:Key="radioButtonStringConverter"/>
     </Window.Resources>
 
@@ -41,11 +43,31 @@
             </TabItem>
             <TabItem Header="Custom URIs">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Margin="10" ItemsSource="{Binding Source={StaticResource optionsViewModelAliasesViewSource}}" CanUserDeleteRows="True" CanUserAddRows="True" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding Source={StaticResource CustomURIsViewSource}}" CanUserDeleteRows="True" CanUserAddRows="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Alias" Binding="{Binding Path=Alias, ValidatesOnExceptions=True}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name, ValidatesOnExceptions=True}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="URI" Binding="{Binding Path=Uri, ValidatesOnExceptions=True}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="URI" Width="*" Binding="{Binding Path=Uri, ValidatesOnExceptions=True}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.RowValidationRules>
+                            <local:CustomURIValidationRule ValidationStep="UpdatedValue"/>
+                        </DataGrid.RowValidationRules>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Aliases" HorizontalAlignment="Left">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid ItemsSource="{Binding Source={StaticResource AliasesViewSource}}"
+                              CanUserDeleteRows="True" 
+                              CanUserAddRows="True" 
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Alias" Binding="{Binding Path=AliasName, ValidatesOnExceptions=True}"/>
+                            <DataGridComboBoxColumn Header="App" 
+                                                    Width="*" 
+                                                    ItemsSource="{Binding Source={StaticResource AppsViewSource}}"
+                                                    DisplayMemberPath="Name"                                                    
+                                                    SelectedValuePath="Id"    
+                                                    SelectedValueBinding="{Binding Path=AppId, ValidatesOnExceptions=True}"/>
                         </DataGrid.Columns>
                         <DataGrid.RowValidationRules>
                             <local:AliasValidationRule ValidationStep="UpdatedValue"/>
@@ -55,7 +77,7 @@
             </TabItem>
             <TabItem Header="Extra Folders" HorizontalAlignment="Left">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="extraFoldersDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource optionsViewModelExtraFoldersViewSource}}" Margin="10,10,9.8,11.6" >
+                    <DataGrid x:Name="extraFoldersDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource ExtraFoldersViewSource}}" Margin="10,10,9.8,11.6" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding FolderPath}" Header="Folder" Width="*"/>
                             <DataGridTemplateColumn>
@@ -69,8 +91,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="About" HorizontalAlignment="Left">
-
+            <TabItem Header="About" HorizontalAlignment="Left" RenderTransformOrigin="1.904,0.52">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="23*" />
@@ -98,6 +119,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+
         </TabControl>
         <Button Content="OK" Margin="0,0,101.6,10.4" Width="75" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="OK_Click"/>
         <Button Content="Cancel" Margin="0,0,9.6,10.4" Width="75" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Cancel_Click" Grid.ColumnSpan="2"/>

@@ -86,6 +86,27 @@ namespace DesktopLauncher
             (NotifyIcon.ContextMenu.Items[0] as MenuItem).InputGestureText = new OptionsViewModel().HotKeyDescription;
         }
 
+        private IList<ILaunchable> LoadAliases(IList<ILaunchable> entries)
+        {
+            var aliases = new List<ILaunchable>();
+            var settings = Properties.Settings.Default;
+            if (settings.Aliases?.Count > 0)
+            {
+                foreach (var alias in settings.Aliases)
+                {
+                    var fields = alias.Split(new char[] { '|' });
+                    var name = fields[0];
+                    var id = fields[1];
+                    var entry = entries.Where(e => e.Id == id).Single();
+                    if (entry != null && !(entry is AppAlias))
+                    {
+                        aliases.Add(new AppAlias(name, entry));
+                    }
+                }
+            }
+            return aliases;
+        }
+
         private void SaveOptions()
         {
             var settings = Properties.Settings.Default;
@@ -104,6 +125,8 @@ namespace DesktopLauncher
             entries.AddRange(await StoreApp.FindAllStoreApps());
             entries.AddRange(DesktopApp.FindAllDesktopApps());
             entries.AddRange(UriLauncher.FindAllUriLaunchers());
+            entries.AddRange(LoadAliases(entries)); 
+            entries.Sort((x, y) => x.Name.CompareTo(y.Name));
 
             LoadingIndicator.IsActive = false;
             InputText.IsEnabled = true;
@@ -163,8 +186,7 @@ namespace DesktopLauncher
 
             var keyword = text.Split(" ".ToCharArray()).First();
 
-            var candidates = entries.Where(entry => entry.AliasName.StartsWith(keyword)).ToList();
-            candidates.AddRange(entries.Where(entry => entry.Name.ToLower().Contains(keyword)));                   
+            var candidates = entries.Where(entry => entry.Name.ToLower().Contains(keyword));                   
             Candidates.DataContext = candidates.Distinct();
             Candidates.SelectedIndex = 0;
 
@@ -222,6 +244,7 @@ namespace DesktopLauncher
             var optionsWindow = new OptionsWindows();
 
             optionsWindow.Owner = this;
+            optionsWindow.Apps = entries.Where(entry => (entry is AppAlias) == false).ToList().AsReadOnly();
 
             var result = optionsWindow.ShowDialog();
             if (result.HasValue && result.Value)

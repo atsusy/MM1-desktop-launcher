@@ -123,14 +123,6 @@ namespace DesktopLauncher
             }
         }
 
-        public string AliasName
-        {
-            get
-            {
-                return "";
-            }
-        }
-
         public ImageSource Icon
         {
             get
@@ -150,7 +142,7 @@ namespace DesktopLauncher
                     return null;
                 }
             }
-        }        
+        }
 
         public void LaunchAsync(string parameters)
         {

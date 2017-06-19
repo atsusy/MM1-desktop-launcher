@@ -63,8 +63,8 @@ namespace DesktopLauncher.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>b|Search by Bing|http://www.bing.com/search?q={1}</string>
-  <string>g|Search by Google|http://www.google.co.jp/search?q={1}</string>
+  <string>Search by Bing|http://www.bing.com/search?q={1}</string>
+  <string>Search by Google|http://www.google.co.jp/search?q={1}</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection UriEntries {
             get {
@@ -95,6 +95,19 @@ namespace DesktopLauncher.Properties {
             }
             set {
                 this["Theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection Aliases {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Aliases"]));
+            }
+            set {
+                this["Aliases"] = value;
             }
         }
     }

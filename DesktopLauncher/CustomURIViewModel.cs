@@ -9,54 +9,50 @@ using System.Windows.Data;
 
 namespace DesktopLauncher
 {
-    public class AliasViewModel : INotifyPropertyChanged
+    public class CustomURIViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private string aliasName;
-        private string appId;
+        private UriLauncher uriLauncher;
 
-        public AliasViewModel()
+        public CustomURIViewModel()
         {
-            aliasName = "";
-            appId = "";
+            uriLauncher = new UriLauncher( "", "");
         }
 
-        public AliasViewModel(string text)
+        public CustomURIViewModel(UriLauncher uriLauncher)             
         {
-            var texts = text.Split(new char[] { '|' });
-            aliasName = texts[0];
-            appId = texts[1];
-        }
+            this.uriLauncher = uriLauncher;
+        }        
 
-        public string AliasName
+        public string Name
         {
             get
             {
-                return aliasName;
+                return uriLauncher.Name;
             }
             set
             {
-                aliasName = value;
-                OnPropertyChanged("AliasName");
+                uriLauncher.Name = value;
+                OnPropertyChanged("Name");
             }
         }
 
-        public string AppId
+        public string Uri
         {
             get
             {
-                return appId;
+                return uriLauncher.Id;
             }
             set
             {
-                appId = value;
-                OnPropertyChanged("AppId");                     
+                uriLauncher.Id = value;
+                OnPropertyChanged("Uri");                     
             }
         }
 
         public override string ToString()
         {
-            return string.Format("{0}|{1}", aliasName, appId);
+            return uriLauncher.ToString();
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -65,12 +61,12 @@ namespace DesktopLauncher
         }
     }
 
-    public class AliasValidationRule : ValidationRule
+    public class CustomURIValidationRule : ValidationRule
     {
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            AliasViewModel alias = (value as BindingGroup).Items[0] as AliasViewModel;
-            if (alias.AliasName.Length == 0 || alias.AppId.Length == 0)
+            CustomURIViewModel customURI = (value as BindingGroup).Items[0] as CustomURIViewModel;
+            if (customURI.Name.Length == 0 || customURI.Uri.Length == 0)
             {
                 return new ValidationResult(false, "Input all columns.");
             }
