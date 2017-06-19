@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,6 +37,7 @@ namespace DesktopLauncher
             HotKeyShift = (modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
             HotKeyAlt = (modifiers & ModifierKeys.Alt) == ModifierKeys.Alt;
             HotKeyWin = (modifiers & ModifierKeys.Windows) == ModifierKeys.Windows;
+            LaunchAtLogin = settings.LaunchAtLogin;
 
             Aliases = new ObservableCollection<AliasViewModel>();
             if(settings.Aliases != null)
@@ -123,6 +125,35 @@ namespace DesktopLauncher
             }
         }
 
+        private bool launchAtLogin;
+        public bool LaunchAtLogin
+        {
+            get
+            {
+                return launchAtLogin;
+            }
+            set
+            {
+                launchAtLogin = value;
+
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+                string productName = "MM1 desktop launcher";
+
+                if (value)
+                {
+                    string startPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Programs)}\MM1 desktop launcher.lnk";
+                    rk.SetValue(productName, startPath);
+                }
+                else
+                {
+                    if(rk.GetValue(productName) != null)
+                    {
+                        rk.DeleteValue(productName);
+                    }
+                }
+            }
+        }
+
         private ObservableCollection<ILaunchable> apps;
         [Bindable(true)]
         public ObservableCollection<ILaunchable> Apps
@@ -198,6 +229,7 @@ namespace DesktopLauncher
             modifiers |= (HotKeyAlt) ? (int)ModifierKeys.Alt : 0;
             modifiers |= (HotKeyWin) ? (int)ModifierKeys.Windows : 0;
             settings.HotKeyModifiers = modifiers;
+            settings.LaunchAtLogin = LaunchAtLogin;
 
             settings.Aliases.Clear();
             foreach (var alias in Aliases)
@@ -222,7 +254,8 @@ namespace DesktopLauncher
                 {
                     settings.ExtraFolders.Add(extraFolder.FolderPath);
                 }
-            }
+            }           
+
             settings.Save();
         }
     }
