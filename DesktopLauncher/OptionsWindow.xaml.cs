@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using DesktopLauncher.Extensions;
 using System.Reflection;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace DesktopLauncher
 {
@@ -26,6 +27,14 @@ namespace DesktopLauncher
         {
             InitializeComponent();
             ApplicationTitle.Content = string.Format(ApplicationTitle.Content as string, Assembly.GetExecutingAssembly().GetName().Version);
+        }
+
+        public IReadOnlyList<ILaunchable> Apps
+        {
+            set
+            {
+                (this.Resources["ViewModel"] as OptionsViewModel).Apps = new ObservableCollection<ILaunchable>(value);
+            }
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)

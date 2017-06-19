@@ -38,9 +38,18 @@ namespace DesktopLauncher
             HotKeyWin = (modifiers & ModifierKeys.Windows) == ModifierKeys.Windows;
 
             Aliases = new ObservableCollection<AliasViewModel>();
+            if(settings.Aliases != null)
+            {
+                foreach (var alias in settings.Aliases)
+                {
+                    Aliases.Add(new AliasViewModel(alias));
+                }
+            }
+
+            CustomURIs = new ObservableCollection<CustomURIViewModel>();
             foreach (var uriLauncher in UriLauncher.FindAllUriLaunchers())
             {
-                Aliases.Add(new AliasViewModel(uriLauncher));
+                CustomURIs.Add(new CustomURIViewModel(uriLauncher));
             }
 
             ExtraFolders = new ObservableCollection<ExtraFolderViewModel>();
@@ -114,8 +123,27 @@ namespace DesktopLauncher
             }
         }
 
+        private ObservableCollection<ILaunchable> apps;
+        [Bindable(true)]
+        public ObservableCollection<ILaunchable> Apps
+        {
+            get => apps;
+            set
+            {
+                apps = value;
+                OnPropertyChanged("Apps");
+            }
+        }
+
         [Bindable(true)]
         public ObservableCollection<AliasViewModel> Aliases
+        {
+            get;
+            set;
+        }
+
+        [Bindable(true)]
+        public ObservableCollection<CustomURIViewModel> CustomURIs
         {
             get;
             set;
@@ -171,10 +199,16 @@ namespace DesktopLauncher
             modifiers |= (HotKeyWin) ? (int)ModifierKeys.Windows : 0;
             settings.HotKeyModifiers = modifiers;
 
-            settings.UriEntries.Clear();
+            settings.Aliases.Clear();
             foreach (var alias in Aliases)
             {
-                settings.UriEntries.Add(alias.ToString());
+                settings.Aliases.Add(alias.ToString());
+            }
+
+            settings.UriEntries.Clear();
+            foreach (var customURI in CustomURIs)
+            {
+                settings.UriEntries.Add(customURI.ToString());
             }
 
             if(ExtraFolders.Count > 0)

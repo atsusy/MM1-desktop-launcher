@@ -82,15 +82,7 @@ namespace DesktopLauncher
             {
                 return entry.DisplayInfo.DisplayName;
             }
-        }
-
-        public string AliasName
-        {
-            get
-            {
-                return "";
-            }
-        }
+        }        
 
         public ImageSource Icon
         {

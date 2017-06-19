@@ -12,7 +12,6 @@ namespace DesktopLauncher
     {
         private string uri;
         private string name;
-        private string alias;
 
         public static IReadOnlyList<UriLauncher> FindAllUriLaunchers()
         {
@@ -23,22 +22,21 @@ namespace DesktopLauncher
             {
                 var columns = setting.Split("|".ToCharArray());
 
-                if(columns.Length != 3)
+                if(columns.Length != 2)
                 {
                     continue;
                 }
 
-                uriLaunchers.Add(new UriLauncher(columns[0], columns[1], columns[2]));
+                uriLaunchers.Add(new UriLauncher(columns[0], columns[1]));
             }
 
             return uriLaunchers.AsReadOnly();
         }
 
-        public UriLauncher(string alias, string name, string uri)
+        public UriLauncher(string name, string uri)
         {
             this.uri = uri;
             this.name = name;
-            this.alias = alias;
         }
 
         public string Id
@@ -65,18 +63,6 @@ namespace DesktopLauncher
             }
         }
 
-        public string AliasName
-        {
-            get
-            {
-                return alias;
-            }
-            set
-            {
-                alias = value;
-            }
-        }
-
         public ImageSource Icon => null;
 
         public async void LaunchAsync(string parameterString)
@@ -87,7 +73,7 @@ namespace DesktopLauncher
 
         public override string ToString()
         {
-            return string.Format("{0}|{1}|{2}", AliasName, Name, Id);
+            return string.Format("{0}|{1}", Name, Id);
         }
     }
 }

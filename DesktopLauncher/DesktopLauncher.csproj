@@ -98,7 +98,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppAlias.cs" />
     <Compile Include="AliasViewModel.cs" />
+    <Compile Include="CustomURIViewModel.cs" />
     <Compile Include="DirectoryHelper.cs" />
     <Compile Include="WindowExtensions.cs" />
     <Compile Include="ExtraFolderViewModel.cs" />
