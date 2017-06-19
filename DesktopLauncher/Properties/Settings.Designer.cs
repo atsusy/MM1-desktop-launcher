@@ -110,5 +110,17 @@ namespace DesktopLauncher.Properties {
                 this["Aliases"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LaunchAtLogin {
+            get {
+                return ((bool)(this["LaunchAtLogin"]));
+            }
+            set {
+                this["LaunchAtLogin"] = value;
+            }
+        }
     }
 }
