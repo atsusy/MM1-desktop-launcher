@@ -185,8 +185,9 @@ namespace DesktopLauncher
             }
 
             var keyword = text.Split(" ".ToCharArray()).First();
+            var candidates = entries.Where(entry => entry.Name.ToLower().StartsWith(keyword)).ToList();
 
-            var candidates = entries.Where(entry => entry.Name.ToLower().Contains(keyword));                   
+            candidates.AddRange(entries.Where(entry => entry.Name.ToLower().Contains(keyword)));
             Candidates.DataContext = candidates.Distinct();
             Candidates.SelectedIndex = 0;
 
