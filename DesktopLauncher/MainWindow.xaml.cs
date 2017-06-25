@@ -108,6 +108,47 @@ namespace DesktopLauncher
             return aliases;
         }
 
+        private void LoadLaunchedCounts(IReadOnlyList<ILaunchable> entries)
+        {
+            var settings = Properties.Settings.Default;
+            if (settings.LaunchCounts?.Count > 0)
+            {
+                foreach(var launchCount in settings.LaunchCounts)
+                {
+                    var fields = launchCount.Split("|".ToCharArray());
+                    if(fields.Count() != 2)
+                    {
+                        continue;
+                    }
+                    var id = fields[0];
+                    var launched = 0;
+
+                    int.TryParse(fields[1], out launched);
+                    var entry = entries.Where((e) => e.Id == id).Single();
+                    if(entry != null)
+                    {
+                        entry.Launched = launched;
+                    }
+                }
+            }
+        }
+
+        private void SaveLaunchedCounts(IReadOnlyList<ILaunchable> entries)
+        {
+            var settings = Properties.Settings.Default;
+            var launchCounts = new System.Collections.Specialized.StringCollection();
+            foreach(var entry in entries)
+            {
+                if(entry.Launched == 0)
+                {
+                    continue;
+                }
+
+                launchCounts.Add(string.Format("{0}|{1}", entry.Id, entry.Launched));
+            }
+            settings.LaunchCounts = launchCounts;
+        }
+
         private void SaveOptions()
         {
             var settings = Properties.Settings.Default;
@@ -119,6 +160,8 @@ namespace DesktopLauncher
 
         private async Task Rescan()
         {
+            SaveLaunchedCounts(entries);
+
             LoadingIndicator.IsActive = true;
             InputText.IsEnabled = false;
 
@@ -128,6 +171,8 @@ namespace DesktopLauncher
             entries.AddRange(UriLauncher.FindAllUriLaunchers());
             entries.AddRange(LoadAliases(entries)); 
             entries.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+            LoadLaunchedCounts(entries);
 
             LoadingIndicator.IsActive = false;
             InputText.IsEnabled = true;
@@ -168,6 +213,7 @@ namespace DesktopLauncher
             if(e.Key == Key.Return)
             {
                 (Candidates.SelectedItem as ILaunchable)?.LaunchAsync(InputText.Text);
+
                 HideLauncher();
                 return;
             }
@@ -187,8 +233,10 @@ namespace DesktopLauncher
 
             var keyword = text.Split(" ".ToCharArray()).First();
             var candidates = entries.Where(entry => entry.Name.ToLower().StartsWith(keyword)).ToList();
-
             candidates.AddRange(entries.Where(entry => entry.Name.ToLower().Contains(keyword)));
+            // 起動回数の多いアプリが上位に表示されるように
+            candidates.InsertRange(0, candidates.Where((entry) => entry.Launched > 0).OrderByDescending((entry) => entry.Launched));
+
             Candidates.DataContext = candidates.Distinct();
             Candidates.SelectedIndex = 0;
 
@@ -264,6 +312,7 @@ namespace DesktopLauncher
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             SaveOptions();
+            SaveLaunchedCounts(entries);
             App.Current.Shutdown();
         }
 

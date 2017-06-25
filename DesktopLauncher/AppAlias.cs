@@ -21,6 +21,14 @@ namespace DesktopLauncher
         public string Id => target.Id;
         public string Name => name;
         public ImageSource Icon => target.Icon;
+        public int Launched
+        {
+            get => target.Launched;
+            set
+            {
+                target.Launched = value;
+            }
+        }
 
         public void LaunchAsync(string parameters)
         {

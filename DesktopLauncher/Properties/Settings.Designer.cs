@@ -134,5 +134,16 @@ namespace DesktopLauncher.Properties {
                 this["Opacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection LaunchCounts {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["LaunchCounts"]));
+            }
+            set {
+                this["LaunchCounts"] = value;
+            }
+        }
     }
 }

@@ -65,10 +65,21 @@ namespace DesktopLauncher
 
         public ImageSource Icon => null;
 
+        private int launched;
+        public int Launched
+        {
+            get => launched;
+            set
+            {
+                launched = value;
+            }
+        }
+
         public async void LaunchAsync(string parameterString)
         {            
             var parameters = parameterString.Split(" ".ToCharArray());
             await Launcher.LaunchUriAsync(new Uri(string.Format(uri, parameters)));
+            Launched++;
         }
 
         public override string ToString()
