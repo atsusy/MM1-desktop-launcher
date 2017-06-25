@@ -159,9 +159,11 @@ namespace DesktopLauncher
             settings.Save();
         }
 
-        private async Task Rescan()
+        private async Task Rescan(bool initial = false)
         {
-            SaveLaunchedCounts(entries);
+            if (!initial) {
+                SaveLaunchedCounts(entries);
+            }
 
             LoadingIndicator.IsActive = true;
             InputText.IsEnabled = false;
@@ -195,7 +197,7 @@ namespace DesktopLauncher
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadOptions();
-            await Rescan();
+            await Rescan(true);
         }
 
         private void Window_Activated(object sender, EventArgs e)
