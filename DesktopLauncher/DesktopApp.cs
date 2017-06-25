@@ -144,9 +144,20 @@ namespace DesktopLauncher
             }
         }
 
+        private int launched;
+        public int Launched
+        {
+            get => launched;
+            set
+            {
+                launched = value;
+            }
+        }
+
         public void LaunchAsync(string parameters)
         {
             Process.Start(executionPath);
+            Launched++;
         }  
     }
 }

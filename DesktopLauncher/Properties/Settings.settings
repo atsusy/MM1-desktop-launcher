@@ -34,5 +34,8 @@
     <Setting Name="Opacity" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.9</Value>
     </Setting>
+    <Setting Name="LaunchCounts" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

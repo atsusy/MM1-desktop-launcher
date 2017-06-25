@@ -90,11 +90,22 @@ namespace DesktopLauncher
             {                          
                 return logo;
             }
-        }        
+        }
+
+        private int launched;
+        public int Launched
+        {
+            get => launched;
+            set
+            {
+                launched = value;
+            }
+        }
 
         public async void LaunchAsync(string parameters)
         {
             var result = await entry.LaunchAsync();
+            Launched++;
         }
 
         private async Task<ImageSource> GetLogo()
