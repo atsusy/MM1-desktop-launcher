@@ -312,6 +312,7 @@ namespace DesktopLauncher
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             SaveOptions();
+            SaveLaunchedCounts(entries);
             App.Current.Shutdown();
         }
 
