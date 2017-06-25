@@ -102,6 +102,7 @@
     <Compile Include="AliasViewModel.cs" />
     <Compile Include="CustomURIViewModel.cs" />
     <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="PercentageStringConverter.cs" />
     <Compile Include="WindowExtensions.cs" />
     <Compile Include="ExtraFolderViewModel.cs" />
     <Compile Include="BoolConverter.cs" />
