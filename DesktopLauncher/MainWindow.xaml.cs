@@ -147,6 +147,7 @@ namespace DesktopLauncher
                 launchCounts.Add(string.Format("{0}|{1}", entry.Id, entry.Launched));
             }
             settings.LaunchCounts = launchCounts;
+            settings.Save();
         }
 
         private void SaveOptions()
