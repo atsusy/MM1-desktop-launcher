@@ -64,8 +64,8 @@
         <Border.Effect>
             <DropShadowEffect BlurRadius="6" Direction="-90" RenderingBias="Performance" ShadowDepth="2" Opacity="0.4"/>
         </Border.Effect>
-        
-        <StackPanel Background="{DynamicResource BackgroundColor}">
+
+        <StackPanel Background="{DynamicResource BackgroundColor}" KeyboardNavigation.TabNavigation="None">
             <tb:TaskbarIcon x:Name="NotifyIcon" IconSource="/Icons/64x64.ico" MenuActivation="LeftOrRightClick" ContextMenu="{StaticResource TaskbarContextMenu}">
             </tb:TaskbarIcon>
             <Grid>
