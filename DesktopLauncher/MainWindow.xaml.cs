@@ -56,6 +56,7 @@ namespace DesktopLauncher
             var settings = Properties.Settings.Default;
 
             (App.Current as App).ChangeTheme(settings.Theme);
+            this.Opacity = (double)settings.Opacity;
 
             if (settings.WindowPosition.X >= 0)
             { 

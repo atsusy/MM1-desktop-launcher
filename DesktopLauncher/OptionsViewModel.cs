@@ -32,6 +32,8 @@ namespace DesktopLauncher
             var modifiers = (ModifierKeys)settings.HotKeyModifiers;
 
             Theme = settings.Theme;
+            Opacity = settings.Opacity;
+
             HotKey = settings.HotKeyCharacter;
             HotKeyControl = (modifiers & ModifierKeys.Control) == ModifierKeys.Control;
             HotKeyShift = (modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
@@ -77,6 +79,17 @@ namespace DesktopLauncher
             {
                 _Theme = value;
                 OnPropertyChanged("Theme");
+            }
+        }
+
+        private decimal _Opacity;
+        public decimal Opacity
+        {
+            get => _Opacity;
+            set
+            {
+                _Opacity = value;
+                OnPropertyChanged("Opacity");
             }
         }
 
@@ -219,6 +232,7 @@ namespace DesktopLauncher
             var settings = Properties.Settings.Default;
 
             settings.Theme = Theme;
+            settings.Opacity = Opacity;
 
             var keyConverter = new KeyConverter();
             settings.HotKeyCharacter = HotKey;

@@ -19,14 +19,25 @@
         <CollectionViewSource x:Key="CustomURIsViewSource" Source="{Binding CustomURIs, Source={StaticResource ViewModel}}"/>
         <CollectionViewSource x:Key="ExtraFoldersViewSource" Source="{Binding ExtraFolders, Source={StaticResource ViewModel}}"/>
         <local:BoolConverter x:Key="radioButtonStringConverter"/>
+        <local:PercentageStringConverter x:Key="percentageStringConverter"/>
     </Window.Resources>
 
     <Grid DataContext="{Binding Source={StaticResource ViewModel}}">
-        <TabControl Margin="0,0,-0.4,40.4" Grid.ColumnSpan="2">
+        <TabControl>
             <TabItem Header="General">
-                <Grid Background="#FFE5E5E5">
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,18,-0.2,0">
-                        <Label Content="Hot Key" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" Margin="8,0" Width="60" HorizontalContentAlignment="Right" />
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Hot Key" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                         <ToggleButton Content="Ctrl" IsChecked="{Binding HotKeyControl, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=true}" Width="40" Height="30" Margin="4,0" />
                         <ToggleButton Content="Shift"  IsChecked="{Binding HotKeyShift}" Width="40" Height="30" Margin="4,0" />
                         <ToggleButton Content="Alt" IsChecked="{Binding HotKeyAlt}" Width="40" Height="30" Margin="4,0" />
@@ -34,13 +45,20 @@
                         <Label Content="+" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0"/>
                         <ComboBox x:Name="HotKey" Width="155" DisplayMemberPath="Value" SelectedValuePath="Key" ItemsSource="{Binding HotKeyItems}" SelectedValue="{Binding HotKey}" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="18" KeyUp="HotKey_KeyUp" />
                     </StackPanel>
-                    <StackPanel Grid.Column="0"  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,70,0,0">
-                        <Label Content="Theme" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0" Height="26" VerticalContentAlignment="Center" Width="60" HorizontalContentAlignment="Right" />
-                        <RadioButton Content="Light" HorizontalAlignment="Left" Margin="4,0,20,0" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding Path=Theme, Converter={StaticResource radioButtonStringConverter}, ConverterParameter=Light}"/>
-                        <RadioButton Content="Dark" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding Path=Theme, Converter={StaticResource radioButtonStringConverter}, ConverterParameter=Dark}"/>
+                    <Label Content="Theme" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0"/>
+                    <StackPanel  Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <RadioButton Content="Light" HorizontalAlignment="Left" Margin="4,0,20,0" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding Theme, ConverterParameter=Light, Converter={StaticResource radioButtonStringConverter}}"/>
+                        <RadioButton Content="Dark" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding Theme, ConverterParameter=Dark, Converter={StaticResource radioButtonStringConverter}}"/>
                     </StackPanel>
-                    <CheckBox Content="Launch MM1 desktop launcher at login" HorizontalAlignment="Left" Margin="83,119,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=LaunchAtLogin}"/>
-                    <Label Content="Options" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,113,0,82.6" Height="26" VerticalContentAlignment="Center" Width="60" HorizontalContentAlignment="Right" />
+                    <Label Content="Opacity" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                        <Slider Width="146" Value="{Binding Path=Opacity, Mode=TwoWay}" VerticalContentAlignment="Center" VerticalAlignment="Center" Maximum="1" SmallChange="0.01" LargeChange="0.1"/>
+                        <Label Content="{Binding Path=Opacity, Converter={StaticResource percentageStringConverter}}" HorizontalAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Label Content="Options" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                        <CheckBox Content="Launch MM1 desktop launcher at login" IsChecked="{Binding Path=LaunchAtLogin}" VerticalContentAlignment="Center"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Custom URIs">

@@ -122,5 +122,17 @@ namespace DesktopLauncher.Properties {
                 this["LaunchAtLogin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.9")]
+        public decimal Opacity {
+            get {
+                return ((decimal)(this["Opacity"]));
+            }
+            set {
+                this["Opacity"] = value;
+            }
+        }
     }
 }
