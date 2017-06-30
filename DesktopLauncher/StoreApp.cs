@@ -68,29 +68,10 @@ namespace DesktopLauncher
             this.entry = entry;            
         }
 
-        public string Id
-        {
-            get
-            {
-                return id;
-            }
-        }
-       
-        public string Name
-        {
-            get
-            {
-                return entry.DisplayInfo.DisplayName;
-            }
-        }        
-
-        public ImageSource Icon
-        {
-            get
-            {                          
-                return logo;
-            }
-        }
+        public string Id => id;
+        public string Name => entry.DisplayInfo.DisplayName;
+        public string DisplayName => Name;
+        public ImageSource Icon => logo;
 
         private int launched;
         public int Launched

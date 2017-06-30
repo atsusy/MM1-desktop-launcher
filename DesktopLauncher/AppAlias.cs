@@ -20,6 +20,7 @@ namespace DesktopLauncher
 
         public string Id => target.Id;
         public string Name => name;
+        public string DisplayName => target.Name;
         public ImageSource Icon => target.Icon;
         public int Launched
         {
