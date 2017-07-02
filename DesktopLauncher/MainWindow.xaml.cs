@@ -98,11 +98,12 @@ namespace DesktopLauncher
                     var fields = alias.Split(new char[] { '|' });
                     var name = fields[0];
                     var id = fields[1];
-                    var entry = entries.Where(e => e.Id == id).Single();
-                    if (entry != null && !(entry is AppAlias))
+                    var targets = entries.Where(e => e.Id == id);
+                    if(targets.Count() != 1)
                     {
-                        aliases.Add(new AppAlias(name, entry));
+                        continue;
                     }
+                    aliases.Add(new AppAlias(name, targets.Single()));                    
                 }
             }
             return aliases;
@@ -124,11 +125,13 @@ namespace DesktopLauncher
                     var launched = 0;
 
                     int.TryParse(fields[1], out launched);
-                    var entry = entries.Where((e) => e.Id == id).Single();
-                    if(entry != null)
+
+                    var targets = entries.Where((e) => e.Id == id);
+                    if(targets.Count() != 1)
                     {
-                        entry.Launched = launched;
+                        continue;
                     }
+                    targets.Single().Launched = launched;
                 }
             }
         }
@@ -136,7 +139,7 @@ namespace DesktopLauncher
         private void SaveLaunchedCounts(IReadOnlyList<ILaunchable> entries)
         {
             var settings = Properties.Settings.Default;
-            var launchCounts = new System.Collections.Specialized.StringCollection();
+            var launchCounts = new Dictionary<string, int>();
             foreach(var entry in entries)
             {
                 if(entry.Launched == 0)
@@ -144,9 +147,21 @@ namespace DesktopLauncher
                     continue;
                 }
 
-                launchCounts.Add(string.Format("{0}|{1}", entry.Id, entry.Launched));
+                if (!launchCounts.ContainsKey(entry.Id))
+                {
+                    launchCounts.Add(entry.Id, entry.Launched);
+                }
+                else
+                {
+                    launchCounts[entry.Id] += entry.Launched;
+                }
             }
-            settings.LaunchCounts = launchCounts;
+          
+            settings.LaunchCounts = new System.Collections.Specialized.StringCollection();
+            foreach(var kv in launchCounts)
+            {
+                settings.LaunchCounts.Add(string.Format("{0}|{1}", kv.Key, kv.Value));
+            }
             settings.Save();
         }
 

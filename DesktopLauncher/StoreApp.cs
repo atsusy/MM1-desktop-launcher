@@ -64,7 +64,7 @@ namespace DesktopLauncher
              
         protected StoreApp(Package package, AppListEntry entry)
         {
-            id =  string.Format("{0}/{1}", package.Id.FullName, entry.DisplayInfo.DisplayName);
+            id =  string.Format("{0}/{1}", package.Id.FamilyName, entry.DisplayInfo.DisplayName);
             this.entry = entry;            
         }
 
