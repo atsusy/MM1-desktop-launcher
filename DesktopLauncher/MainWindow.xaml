@@ -45,7 +45,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Width="30" Height="30" Margin="0,0,0,0" Source="{Binding Path=Icon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,0,4">
-                    <TextBlock Text="{Binding Path=Name}" Foreground="{DynamicResource ForegroundColor}" FontSize="16" Margin="4,4,0,0" MaxWidth="300" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding Path=DisplayName}" Foreground="{DynamicResource ForegroundColor}" FontSize="16" Margin="4,4,0,0" MaxWidth="300" TextTrimming="CharacterEllipsis" />
                     <TextBlock Text="{Binding Path=Id}" Foreground="{DynamicResource SubforegroundColor}" FontSize="10" Margin="4,0,0,4" MaxWidth="300" TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </StackPanel>

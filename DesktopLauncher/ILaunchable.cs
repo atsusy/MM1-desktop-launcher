@@ -11,6 +11,7 @@ namespace DesktopLauncher
     {
         string Id { get; }
         string Name { get; }
+        string DisplayName { get; }
         ImageSource Icon { get; }
         int Launched { get; set; }
 

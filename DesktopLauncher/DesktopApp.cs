@@ -107,22 +107,9 @@ namespace DesktopLauncher
             this.executionPath = executionPath;
         }
 
-        public string Id
-        {
-            get
-            {
-                return executionPath;
-            }
-        }
-
-        public String Name
-        {
-            get
-            {
-                return name;
-            }
-        }
-
+        public string Id => executionPath;
+        public string Name => name;
+        public string DisplayName => Name;
         public ImageSource Icon
         {
             get

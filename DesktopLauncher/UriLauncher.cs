@@ -39,12 +39,8 @@ namespace DesktopLauncher
             this.name = name;
         }
 
-        public string Id
-        {
-            get
-            {
-                return uri;
-            }
+        public string Id {
+            get => uri;
             set
             {
                 uri = value;
@@ -53,14 +49,16 @@ namespace DesktopLauncher
 
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => name;
             set
             {
                 name = value;
             }
+        }
+
+        public string DisplayName
+        {
+            get => Name;
         }
 
         public ImageSource Icon => null;
