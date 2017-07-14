@@ -145,5 +145,17 @@ namespace DesktopLauncher.Properties {
                 this["LaunchCounts"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsUpgraded {
+            get {
+                return ((bool)(this["IsUpgraded"]));
+            }
+            set {
+                this["IsUpgraded"] = value;
+            }
+        }
     }
 }
