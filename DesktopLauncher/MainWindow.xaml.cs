@@ -37,6 +37,14 @@ namespace DesktopLauncher
         {
             InitializeComponent();
             initialHeight = Height;
+
+            // 前バージョンの設定を引き継ぐ
+            if (!Properties.Settings.Default.IsUpgraded)
+            {
+                Properties.Settings.Default.Upgrade();                    
+                Properties.Settings.Default.IsUpgraded = true;
+                Properties.Settings.Default.Save();
+            }
         }        
 
         private void ShowLauncher()
@@ -126,7 +134,7 @@ namespace DesktopLauncher
 
                     int.TryParse(fields[1], out launched);
 
-                    var targets = entries.Where((e) => e.Id == id);
+                    var targets = entries.Where((e) => e.Id == id && !(e is AppAlias));
                     if(targets.Count() != 1)
                     {
                         continue;
@@ -250,10 +258,13 @@ namespace DesktopLauncher
             }
 
             var keyword = text.Split(" ".ToCharArray()).First();
-            var candidates = entries.Where(entry => entry.Name.ToLower().StartsWith(keyword)).ToList();
-            candidates.AddRange(entries.Where(entry => entry.Name.ToLower().Contains(keyword)));
-            // 起動回数の多いアプリが上位に表示されるように
-            candidates.InsertRange(0, candidates.Where((entry) => entry.Launched > 0).OrderByDescending((entry) => entry.Launched));
+            // ## Spec of listing order
+            // 1. equals to keyword
+            // 2. forward match / launched count
+            // 3. partial match / launched count
+            var candidates = entries.Where(en => en.Name.ToLower() == keyword).ToList();
+            candidates.AddRange(entries.Where(en => en.Name.ToLower().StartsWith(keyword)).OrderByDescending((en) => en.Launched));
+            candidates.AddRange(entries.Where(en => en.Name.ToLower().Contains(keyword)).OrderByDescending((en) => en.Launched));
 
             Candidates.DataContext = candidates.Distinct();
             Candidates.SelectedIndex = 0;

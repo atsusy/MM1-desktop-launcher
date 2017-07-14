@@ -27,7 +27,7 @@ namespace DesktopLauncher
             get => target.Launched;
             set
             {
-                target.Launched = value;
+
             }
         }
 
