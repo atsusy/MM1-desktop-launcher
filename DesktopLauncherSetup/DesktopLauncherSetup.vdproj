@@ -186,7 +186,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.4.0.19431, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.4.1.16106, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5108006D67944BF295D262FE642A076A"
@@ -362,15 +362,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MM1 desktop launcher "
-        "ProductCode" = "8:{5E3FC68E-0E1C-4B35-919F-495EC175D94E}"
-        "PackageCode" = "8:{224962CA-6EB1-48BE-A0D2-3A274CFD4C08}"
+        "ProductCode" = "8:{ED49D62A-56A9-4B68-8F3D-D25886043B8C}"
+        "PackageCode" = "8:{DAB26248-3282-4387-A7B5-DD41C3AF5FE0}"
         "UpgradeCode" = "8:{6A7653AB-5A4F-418F-BF5B-4111BE2DB75B}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.4.0"
+        "ProductVersion" = "8:0.4.1"
         "Manufacturer" = "8:Msmc"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
