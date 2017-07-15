@@ -16,4 +16,5 @@ Simple Desktop App Launcher for Windows 10
 # License
 MIT Licsense
 
-
+# Privacy Policy
+[Privacy Policy](privacy_policy.html)
