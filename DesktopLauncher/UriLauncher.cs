@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -84,9 +86,24 @@ namespace DesktopLauncher
 
         public bool RunAs => false;
 
+        private int parametersCount {
+            get
+            {
+                return Regex.Matches(uri, @"\{(?<no>\d+?)\}").Cast<Match>().Select((g) => int.Parse(g.Groups["no"].ToString())).Max() + 1;
+            }
+        }
+
         public async void LaunchAsync(string parameterString)
-        {            
-            var parameters = parameterString.Split(" ".ToCharArray());
+        {
+            var separator = " ";
+            var parameters = parameterString.Split(separator.ToCharArray());
+            if(parameters.Length > parametersCount)
+            {
+                var p = parameters.Take(parametersCount - 1).ToList();
+                p.Add(string.Join(separator, parameters.Skip(parametersCount - 1)));
+                parameters = p.ToArray();
+            }
+
             await Launcher.LaunchUriAsync(new Uri(string.Format(uri, parameters)));
             Launched++;
         }
