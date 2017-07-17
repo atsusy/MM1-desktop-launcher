@@ -141,10 +141,25 @@ namespace DesktopLauncher
             }
         }
 
+        public bool RunAs => true;
+
+        private void LaunchAsync(string parameters, bool runAs)
+        {
+            var args = parameters.Split(" ".ToCharArray());            
+            var pi = new ProcessStartInfo(executionPath, string.Join(" ", args.Skip(1).ToArray()));
+            if(runAs) { pi.Verb = "runas"; };
+            Process.Start(pi);
+            Launched++;
+        }
+
         public void LaunchAsync(string parameters)
         {
-            Process.Start(executionPath);
-            Launched++;
-        }  
+            LaunchAsync(parameters, false);
+        }
+
+        public void LaunchAsyncRunAs(string parameters)
+        {
+            LaunchAsync(parameters, true);
+        }
     }
 }

@@ -83,6 +83,8 @@ namespace DesktopLauncher
             }
         }
 
+        public bool RunAs => false;
+
         public async void LaunchAsync(string parameters)
         {
             var result = await entry.LaunchAsync();
@@ -124,6 +126,11 @@ namespace DesktopLauncher
             {
                 return null;
             }
+        }
+
+        public void LaunchAsyncRunAs(string parameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }

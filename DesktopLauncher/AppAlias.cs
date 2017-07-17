@@ -30,10 +30,16 @@ namespace DesktopLauncher
 
             }
         }
+        public bool RunAs => target.RunAs;
 
         public void LaunchAsync(string parameters)
         {
             target.LaunchAsync(parameters);
+        }
+
+        public void LaunchAsyncRunAs(string parameters)
+        {
+            target.LaunchAsyncRunAs(parameters);
         }
     }
 }

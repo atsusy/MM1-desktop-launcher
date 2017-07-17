@@ -238,7 +238,16 @@ namespace DesktopLauncher
 
             if(e.Key == Key.Return)
             {
-                (Candidates.SelectedItem as ILaunchable)?.LaunchAsync(InputText.Text);
+                var runAs = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
+                var launchable = Candidates.SelectedItem as ILaunchable;
+                if (runAs)
+                {
+                    launchable?.LaunchAsyncRunAs(InputText.Text);
+                }
+                else
+                {
+                    launchable?.LaunchAsync(InputText.Text);
+                }
 
                 HideLauncher();
                 return;

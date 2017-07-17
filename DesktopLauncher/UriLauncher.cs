@@ -73,6 +73,8 @@ namespace DesktopLauncher
             }
         }
 
+        public bool RunAs => false;
+
         public async void LaunchAsync(string parameterString)
         {            
             var parameters = parameterString.Split(" ".ToCharArray());
@@ -83,6 +85,11 @@ namespace DesktopLauncher
         public override string ToString()
         {
             return string.Format("{0}|{1}", Name, Id);
+        }
+
+        public void LaunchAsyncRunAs(string parameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }

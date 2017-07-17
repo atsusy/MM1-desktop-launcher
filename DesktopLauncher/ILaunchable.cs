@@ -14,7 +14,10 @@ namespace DesktopLauncher
         string DisplayName { get; }
         ImageSource Icon { get; }
         int Launched { get; set; }
+        bool RunAs { get; }
 
         void LaunchAsync(string parameters);
+
+        void LaunchAsyncRunAs(string parameters);
     }
 }
