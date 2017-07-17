@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Windows.System;
 
 namespace DesktopLauncher
 {
-    public class UriLauncher : ILaunchable
+    public class UriLauncher : ILaunchable, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private string uri;
         private string name;
+        private ImageSource favicon;
 
         public static IReadOnlyList<UriLauncher> FindAllUriLaunchers()
         {
@@ -37,6 +44,7 @@ namespace DesktopLauncher
         {
             this.uri = uri;
             this.name = name;
+            DownloadFaviconAsync();
         }
 
         public string Id {
@@ -61,9 +69,10 @@ namespace DesktopLauncher
             get => Name;
         }
 
-        public ImageSource Icon => null;
+        public ImageSource Icon => favicon;
 
         private int launched;
+
         public int Launched
         {
             get => launched;
@@ -90,6 +99,27 @@ namespace DesktopLauncher
         public void LaunchAsyncRunAs(string parameters)
         {
             throw new NotImplementedException();
+        }
+
+        private async void DownloadFaviconAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                var hostName = new Uri(this.uri).Host;
+                var uri = new Uri($"http://www.google.com/s2/favicons?domain={hostName}");
+                var response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
+
+                using (var httpStream = await response.Content.ReadAsStreamAsync())
+                {
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = httpStream;
+                    bitmapImage.EndInit();
+
+                    favicon =  bitmapImage;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
+                }
+            }
         }
     }
 }
