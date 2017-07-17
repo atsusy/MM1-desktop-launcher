@@ -50,6 +50,7 @@ namespace DesktopLauncher
         private void ShowLauncher()
         { 
             Show();
+            InputText.Focus();
         }
 
         private void HideLauncher()
