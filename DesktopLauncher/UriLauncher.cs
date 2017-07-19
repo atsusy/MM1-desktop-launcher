@@ -89,7 +89,12 @@ namespace DesktopLauncher
         private int parametersCount {
             get
             {
-                return Regex.Matches(uri, @"\{(?<no>\d+?)\}").Cast<Match>().Select((g) => int.Parse(g.Groups["no"].ToString())).Max() + 1;
+                var regex = new Regex(@"\{(?<no>\d+?)\}");
+                if (!regex.IsMatch(uri))
+                {
+                    return 0;
+                }
+                return regex.Matches(uri).Cast<Match>().Select((g) => int.Parse(g.Groups["no"].ToString())).Max() + 1;
             }
         }
 
@@ -120,6 +125,11 @@ namespace DesktopLauncher
 
         private async void DownloadFaviconAsync()
         {
+            if (string.IsNullOrEmpty(uri))
+            {
+                return;
+            }
+
             using (var client = new HttpClient())
             {
                 var hostName = new Uri(this.uri).Host;
