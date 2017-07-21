@@ -241,7 +241,7 @@ namespace DesktopLauncher
             {
                 var runAs = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
                 var launchable = Candidates.SelectedItem as ILaunchable;
-                if (runAs)
+                if (runAs && launchable.RunAs)
                 {
                     launchable?.LaunchAsyncRunAs(InputText.Text);
                 }

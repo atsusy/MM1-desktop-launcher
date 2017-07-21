@@ -1,6 +1,7 @@
 ﻿using Smdn.Windows.UserInterfaces.Shells;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -148,8 +149,15 @@ namespace DesktopLauncher
             var args = parameters.Split(" ".ToCharArray());            
             var pi = new ProcessStartInfo(executionPath, string.Join(" ", args.Skip(1).ToArray()));
             if(runAs) { pi.Verb = "runas"; };
-            Process.Start(pi);
-            Launched++;
+            try
+            {
+                Process.Start(pi);
+                Launched++;
+            }
+            catch(Win32Exception)
+            {
+                
+            }
         }
 
         public void LaunchAsync(string parameters)
