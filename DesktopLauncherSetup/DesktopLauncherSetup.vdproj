@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_631FE283B149E8B4D859573F18F04306"
+        "OwnerKey" = "8:_5108006D67944BF295D262FE642A076A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CBD417C587ABB5825D06A8EE9A6DF38F"
         "OwnerKey" = "8:_5108006D67944BF295D262FE642A076A"
         "MsmSig" = "8:_UNDEFINED"
@@ -53,6 +59,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_5108006D67944BF295D262FE642A076A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_631FE283B149E8B4D859573F18F04306"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -186,7 +198,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.4.1.16106, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.4.2.16542, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5108006D67944BF295D262FE642A076A"
@@ -211,6 +223,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_631FE283B149E8B4D859573F18F04306"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_631FE283B149E8B4D859573F18F04306"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_73CE541719D94483851EE3E2312FE018"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CBD417C587ABB5825D06A8EE9A6DF38F"
@@ -362,15 +405,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MM1 desktop launcher "
-        "ProductCode" = "8:{ED49D62A-56A9-4B68-8F3D-D25886043B8C}"
-        "PackageCode" = "8:{DAB26248-3282-4387-A7B5-DD41C3AF5FE0}"
+        "ProductCode" = "8:{AA5FB517-7141-4BFA-AEC1-8895C3DC0D86}"
+        "PackageCode" = "8:{7FF34911-6A1A-4E83-92A5-DF9FAF160027}"
         "UpgradeCode" = "8:{6A7653AB-5A4F-418F-BF5B-4111BE2DB75B}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.4.1"
+        "ProductVersion" = "8:0.5.0"
         "Manufacturer" = "8:Msmc"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
