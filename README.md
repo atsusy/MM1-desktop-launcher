@@ -10,6 +10,10 @@ Simple Desktop App Launcher for Windows 10
 - Custom URIs
 - Extra Folders
 
+# Custom URI parameter
+You can pass parameter to URI with `{[number]}`.
+For example, regsiter the URI `https://www.google.co.jp/search?q={1}` with name `g` and enter `g test`, The URI will be extracted as `https://www.google.co.jp/search?q=test`
+
 # OS
 - Windows 10
 
