@@ -1,4 +1,2 @@
-DesktopAppConverter.exe -Installer C:\Release\ -AppExecutable MM1DesktopLauncher.exe -Destination C:\Output\MM1D
-esktopLauncher -PackageName "	6892MARSHMALLOWMACHINE.294151CA6B070" -Publisher "CN=DEE76187-35BE-4316-B0BC-17CB2F7F0E04" -Version 0.4.0.0 -
-MakeAppx -Sign -Verbose -PackagePublisherDisplayName  "MARSHMALLOW MACHINE Inc." -AppDisplayName "MM1 desktop launcher"
--PackageDisplayName "MM1 desktop launcher"
+DesktopAppConverter.exe -Installer C:\Release\ -AppExecutable MM1DesktopLauncher.exe -Destination C:\Output\MM1DesktopLauncher -PackageName "MM1DesktopLauncher" -Publisher "CN=DEE76187-35BE-4316-B0BC-17CB2F7F0E04" -Version 0.5.1.0 -
+MakeAppx -Sign -Verbose -PackagePublisherDisplayName  "MARSHMALLOW MACHINE Inc." -AppDisplayName "MM1 desktop launcher" -PackageDisplayName "MM1 desktop launcher"

@@ -58,13 +58,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5108006D67944BF295D262FE642A076A"
+        "OwnerKey" = "8:_631FE283B149E8B4D859573F18F04306"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_631FE283B149E8B4D859573F18F04306"
+        "OwnerKey" = "8:_5108006D67944BF295D262FE642A076A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -198,7 +198,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.4.2.16542, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.5.0.17593, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5108006D67944BF295D262FE642A076A"
@@ -405,15 +405,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MM1 desktop launcher "
-        "ProductCode" = "8:{AA5FB517-7141-4BFA-AEC1-8895C3DC0D86}"
-        "PackageCode" = "8:{7FF34911-6A1A-4E83-92A5-DF9FAF160027}"
+        "ProductCode" = "8:{B17F0C3A-EBDF-4316-9DE8-3F8315903C9D}"
+        "PackageCode" = "8:{F31BA493-E177-4E4D-9BB0-C9D1AE9218D0}"
         "UpgradeCode" = "8:{6A7653AB-5A4F-418F-BF5B-4111BE2DB75B}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.5.0"
+        "ProductVersion" = "8:0.5.1"
         "Manufacturer" = "8:Msmc"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
