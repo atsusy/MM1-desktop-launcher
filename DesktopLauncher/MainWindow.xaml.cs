@@ -270,13 +270,18 @@ namespace DesktopLauncher
             var keyword = text.Split(" ".ToCharArray()).First();
             // ## Spec of listing order
             // 1. equals to keyword
-            // 2. forward match / launched count
-            // 3. partial match / launched count
-            var candidates = entries.Where(en => en.Name.ToLower() == keyword).ToList();
-            candidates.AddRange(entries.Where(en => en.Name.ToLower().StartsWith(keyword)).OrderByDescending((en) => en.Launched));
-            candidates.AddRange(entries.Where(en => en.Name.ToLower().Contains(keyword)).OrderByDescending((en) => en.Launched));
-
-            Candidates.DataContext = candidates.Distinct();
+            // 2. launched count
+            // 3. forward match
+            // 4. partial match
+            var candidates = entries.Where(en => en.Name.ToLower().Contains(keyword)).OrderByDescending((en) =>
+            {
+                if (en.Name.ToLower() == keyword.ToLower())
+                {
+                    return int.MaxValue;
+                }
+                return (en.Launched << 1) | (en.Name.ToLower().StartsWith(keyword) ? 1 : 0);
+            }).Distinct(new LaunchableEqualityComparer());
+            Candidates.DataContext = candidates;
             Candidates.SelectedIndex = 0;
 
             Candidates.Height = candidatesHeight;

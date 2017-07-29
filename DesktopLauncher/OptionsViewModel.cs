@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,44 +6,39 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DesktopLauncher
 {
-    public class OptionsViewModel : INotifyPropertyChanged
+    public class OptionsViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        private Options options;
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public OptionsViewModel() : this(Properties.Settings.Default)
+        public OptionsViewModel() : this(Options.SingletonOptions)
         {
         }
 
-        OptionsViewModel(DesktopLauncher.Properties.Settings settings)
+        OptionsViewModel(Options options)
         {
+            this.options = options;
+            
             var keyConverter = new KeyConverter();
-            var modifiers = (ModifierKeys)settings.HotKeyModifiers;
+            var modifiers = (ModifierKeys)options.HotKeyModifiers;
 
-            Theme = settings.Theme;
-            Opacity = settings.Opacity;
+            Theme = options.Theme;
+            Opacity = options.Opacity;
 
-            HotKey = settings.HotKeyCharacter;
+            HotKey = options.HotKeyCharacter;
             HotKeyControl = (modifiers & ModifierKeys.Control) == ModifierKeys.Control;
             HotKeyShift = (modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
             HotKeyAlt = (modifiers & ModifierKeys.Alt) == ModifierKeys.Alt;
             HotKeyWin = (modifiers & ModifierKeys.Windows) == ModifierKeys.Windows;
-            LaunchAtLogin = settings.LaunchAtLogin;
+            LaunchAtLogin = options.LaunchAtLogin;
 
             Aliases = new ObservableCollection<AliasViewModel>();
-            if(settings.Aliases != null)
+            if(options.Aliases != null)
             {
-                foreach (var alias in settings.Aliases)
+                foreach (var alias in options.Aliases)
                 {
                     Aliases.Add(new AliasViewModel(alias));
                 }
@@ -56,16 +50,10 @@ namespace DesktopLauncher
                 CustomURIs.Add(new CustomURIViewModel(uriLauncher));
             }
 
-            ExtraFolders = new ObservableCollection<ExtraFolderViewModel>();
-            if (settings.ExtraFolders != null) {
-                foreach (var extraFolder in settings.ExtraFolders)
-                {
-                    if (extraFolder.Length > 0 && Directory.Exists(extraFolder))
-                    {
-                        ExtraFolders.Add(new ExtraFolderViewModel(extraFolder));
-                    }
-                }
-            }
+            var extraFolderViewModels = options.ExtraFoldersAndExtenstions
+                .Where((t) => t.Item1.Length > 0 && Directory.Exists(t.Item1))
+                .Select((t) => new ExtraFolderViewModel(t.Item1, t.Item2));
+            ExtraFolders = new ObservableCollection<ExtraFolderViewModel>(extraFolderViewModels);
         }
 
         private string _Theme;
@@ -148,22 +136,6 @@ namespace DesktopLauncher
             set
             {
                 launchAtLogin = value;
-
-                RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-                string productName = "MM1 desktop launcher";
-
-                if (value)
-                {
-                    string startPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Programs)}\MM1 desktop launcher.lnk";
-                    rk.SetValue(productName, startPath);
-                }
-                else
-                {
-                    if(rk.GetValue(productName) != null)
-                    {
-                        rk.DeleteValue(productName);
-                    }
-                }
             }
         }
 
@@ -226,51 +198,55 @@ namespace DesktopLauncher
                     .ToDictionary(r => r.Key.ToString(), r => r.Value.ToString());
             }            
         }
- 
+
         public void Save()
         {
-            var settings = Properties.Settings.Default;
-
-            settings.Theme = Theme;
-            settings.Opacity = Opacity;
+            options.Theme = Theme;
+            options.Opacity = Opacity;
 
             var keyConverter = new KeyConverter();
-            settings.HotKeyCharacter = HotKey;
+            options.HotKeyCharacter = HotKey;
 
             var modifiers = 0;
             modifiers |= (HotKeyControl) ? (int)ModifierKeys.Control : 0;
             modifiers |= (HotKeyShift) ? (int)ModifierKeys.Shift : 0;
             modifiers |= (HotKeyAlt) ? (int)ModifierKeys.Alt : 0;
             modifiers |= (HotKeyWin) ? (int)ModifierKeys.Windows : 0;
-            settings.HotKeyModifiers = modifiers;
-            settings.LaunchAtLogin = LaunchAtLogin;
+            options.HotKeyModifiers = modifiers;
+            options.LaunchAtLogin = LaunchAtLogin;
 
-            settings.Aliases.Clear();
+            options.Aliases.Clear();
             foreach (var alias in Aliases)
             {
-                settings.Aliases.Add(alias.ToString());
+                options.Aliases.Add(alias.ToString());
             }
 
-            settings.UriEntries.Clear();
+            options.UriEntries.Clear();
             foreach (var customURI in CustomURIs)
             {
-                settings.UriEntries.Add(customURI.ToString());
+                options.UriEntries.Add(customURI.ToString());
             }
 
             if(ExtraFolders.Count > 0)
             {
-                if(settings.ExtraFolders == null)
+                if(options.ExtraFolders == null)
                 {
-                    settings.ExtraFolders = new System.Collections.Specialized.StringCollection();
+                    options.ExtraFolders = new System.Collections.Specialized.StringCollection();
                 }
-                settings.ExtraFolders.Clear();
+                if(options.ExtraExtentions == null)
+                {
+                    options.ExtraExtentions = new System.Collections.Specialized.StringCollection();
+                }
+                options.ExtraFolders.Clear();
+                options.ExtraExtentions.Clear();
                 foreach (var extraFolder in ExtraFolders)
                 {
-                    settings.ExtraFolders.Add(extraFolder.FolderPath);
+                    options.ExtraFolders.Add(extraFolder.FolderPath);
+                    options.ExtraExtentions.Add(extraFolder.Extentions);
                 }
-            }           
+            }               
 
-            settings.Save();
+            options.Save();
         }
     }
 }

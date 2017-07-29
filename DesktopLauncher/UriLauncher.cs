@@ -86,7 +86,7 @@ namespace DesktopLauncher
 
         public bool RunAs => false;
 
-        private int parametersCount {
+        private int ParametersCount {
             get
             {
                 var regex = new Regex(@"\{(?<no>\d+?)\}");
@@ -102,11 +102,16 @@ namespace DesktopLauncher
         {
             var separator = " ";
             var parameters = parameterString.Split(separator.ToCharArray());
-            if(parameters.Length > parametersCount)
+            if(parameters.Length > ParametersCount)
             {
-                var p = parameters.Take(parametersCount - 1).ToList();
-                p.Add(string.Join(separator, parameters.Skip(parametersCount - 1)));
+                var p = parameters.Take(ParametersCount - 1).ToList();
+                p.Add(string.Join(separator, parameters.Skip(ParametersCount - 1)));
                 parameters = p.ToArray();
+            }
+
+            if(parameters.Length != ParametersCount)
+            {
+                return;
             }
 
             await Launcher.LaunchUriAsync(new Uri(string.Format(uri, parameters)));

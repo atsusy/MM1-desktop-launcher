@@ -9,9 +9,8 @@ using System.Windows.Data;
 
 namespace DesktopLauncher
 {
-    public class CustomURIViewModel : INotifyPropertyChanged
+    //public class CustomURIViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private UriLauncher uriLauncher;
 
         public CustomURIViewModel()
@@ -53,11 +52,6 @@ namespace DesktopLauncher
         public override string ToString()
         {
             return uriLauncher.ToString();
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

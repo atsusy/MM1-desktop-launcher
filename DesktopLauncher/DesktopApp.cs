@@ -24,56 +24,59 @@ namespace DesktopLauncher
             desktopApps.AddRange(FindDesktopApps(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu)));
             desktopApps.AddRange(FindDesktopApps(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu)));
 
-            var extraFolders = Properties.Settings.Default.ExtraFolders;
-            if(extraFolders != null && extraFolders.Count > 0)
+            foreach(var extraFolder in Options.SingletonOptions.ExtraFoldersAndExtenstions)
             {
-                foreach(var extraFolder in extraFolders)
-                {
-                    desktopApps.AddRange(FindDesktopApps(extraFolder));
-                }
+                desktopApps.AddRange(FindDesktopApps(extraFolder.Item1, extraFolder.Item2));
             }
 
             return desktopApps.AsReadOnly();
         }
 
-        private static IReadOnlyList<ILaunchable> FindDesktopApps(string path)
+        private static IReadOnlyList<ILaunchable> FindDesktopApps(string path, string extentions = Options.DefaultExtentions)
         {
             var desktopApps = new List<ILaunchable>();
 
-            string[] dirs = Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
-            foreach (string dir in dirs)
+            try
             {
-                DirectoryInfo dinfo = new DirectoryInfo(dir);
-                if (!dinfo.Attributes.HasFlag(FileAttributes.ReparsePoint))
+                string[] dirs = Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
+                foreach (string dir in dirs)
                 {
-                    string[] files = DirectoryHelper.GetFilesEx(dir, "*.lnk|*.exe", SearchOption.AllDirectories);
-                    foreach (var file in files)
+                    DirectoryInfo dinfo = new DirectoryInfo(dir);
+                    if (!dinfo.Attributes.HasFlag(FileAttributes.ReparsePoint))
                     {
-                        var name = Path.GetFileNameWithoutExtension(file);
+                        string[] files = DirectoryHelper.GetFilesEx(dir, extentions, SearchOption.AllDirectories);
+                        foreach (var file in files)
+                        {
+                            var name = Path.GetFileNameWithoutExtension(file);
 
-                        try
-                        {
-                            desktopApps.Add(new DesktopApp(name, file));
-                        }
-                        catch(Exception ex)
-                        {
-                            Debug.WriteLine(string.Format("Failure to add desktop app:{0}\n{1}", file, ex.ToString()));
+                            try
+                            {
+                                desktopApps.Add(new DesktopApp(name, file));
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(string.Format("Failure to add desktop app:{0}\n{1}", file, ex.ToString()));
+                            }
                         }
                     }
                 }
-            }
 
-            foreach (var file in DirectoryHelper.GetFilesEx(path, "*.lnk|*.exe", SearchOption.TopDirectoryOnly))
+                foreach (var file in DirectoryHelper.GetFilesEx(path, extentions, SearchOption.TopDirectoryOnly))
+                {
+                    var name = Path.GetFileNameWithoutExtension(file);
+                    try
+                    {
+                        desktopApps.Add(new DesktopApp(name, file));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(string.Format("Failure to add desktop app:{0}\n{1}", file, ex.ToString()));
+                    }
+                }
+            }
+            catch(UnauthorizedAccessException)
             {
-                var name = Path.GetFileNameWithoutExtension(file);
-                try
-                {
-                    desktopApps.Add(new DesktopApp(name, file));
-                }
-                catch(Exception ex)
-                {
-                    Debug.WriteLine(string.Format("Failure to add desktop app:{0}\n{1}", file, ex.ToString()));
-                }
+
             }
 
             return desktopApps.AsReadOnly();

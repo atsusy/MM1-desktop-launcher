@@ -56,6 +56,9 @@ namespace DesktopLauncher
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            System.Windows.Data.CollectionViewSource optionsViewModelViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("optionsViewModelViewSource")));
+            // CollectionViewSource.Source プロパティを設定してデータを読み込みます:
+            // optionsViewModelViewSource.Source = [汎用データ ソース]
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -76,7 +79,7 @@ namespace DesktopLauncher
                     else
                     {
                         var viewModel = FindResource("ViewModel") as OptionsViewModel;
-                        viewModel.ExtraFolders.Add(new ExtraFolderViewModel(dialog.SelectedPath));
+                        viewModel.ExtraFolders.Add(new ExtraFolderViewModel(dialog.SelectedPath, ""));
                     }
                 }
             }

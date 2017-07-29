@@ -11,7 +11,9 @@
         Width="500" 
         Topmost="True" 
         WindowStartupLocation="CenterOwner" 
-        SourceInitialized="Window_SourceInitialized" Loaded="Window_Loaded">
+        ShowInTaskbar="False"
+        SourceInitialized="Window_SourceInitialized" 
+        Loaded="Window_Loaded">
     <Window.Resources>
         <local:OptionsViewModel x:Key="ViewModel" />
         <CollectionViewSource x:Key="AppsViewSource" Source="{Binding Apps, Source={StaticResource ViewModel}}"/>
@@ -20,6 +22,8 @@
         <CollectionViewSource x:Key="ExtraFoldersViewSource" Source="{Binding ExtraFolders, Source={StaticResource ViewModel}}"/>
         <local:BoolConverter x:Key="radioButtonStringConverter"/>
         <local:PercentageStringConverter x:Key="percentageStringConverter"/>
+        <CollectionViewSource x:Key="optionsViewModelViewSource" d:DesignSource="{d:DesignInstance {x:Type local:OptionsViewModel}, CreateList=True}"/>
+        <CollectionViewSource x:Key="ExtraExtentionsViewSource" Source="{Binding ExtraExtentions, Source={StaticResource ViewModel}}"/>
     </Window.Resources>
 
     <Grid DataContext="{Binding Source={StaticResource ViewModel}}">
@@ -97,7 +101,7 @@
             </TabItem>
             <TabItem Header="Extra Folders" HorizontalAlignment="Left">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="extraFoldersDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource ExtraFoldersViewSource}}" Margin="10,10,9.8,11.6" >
+                    <DataGrid x:Name="extraFoldersDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Source={StaticResource ExtraFoldersViewSource}}" Margin="10,10,10,12" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding FolderPath}" Header="Folder" Width="*"/>
                             <DataGridTemplateColumn>
@@ -107,8 +111,10 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Extentions}" Header="Extentions" Width="80"/>
                         </DataGrid.Columns>
                     </DataGrid>
+
                 </Grid>
             </TabItem>
             <TabItem Header="About" HorizontalAlignment="Left" RenderTransformOrigin="1.904,0.52">

@@ -102,7 +102,10 @@
     <Compile Include="AliasViewModel.cs" />
     <Compile Include="CustomURIViewModel.cs" />
     <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="LaunchableEqualityComparer.cs" />
+    <Compile Include="Options.cs" />
     <Compile Include="PercentageStringConverter.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <Compile Include="WindowExtensions.cs" />
     <Compile Include="ExtraFolderViewModel.cs" />
     <Compile Include="BoolConverter.cs" />
@@ -170,7 +173,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

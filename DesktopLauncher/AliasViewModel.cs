@@ -9,9 +9,8 @@ using System.Windows.Data;
 
 namespace DesktopLauncher
 {
-    public class AliasViewModel : INotifyPropertyChanged
+    public class AliasViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private string aliasName;
         private string appId;
 
@@ -57,11 +56,6 @@ namespace DesktopLauncher
         public override string ToString()
         {
             return string.Format("{0}|{1}", aliasName, appId);
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
