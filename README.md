@@ -14,6 +14,14 @@ Simple Desktop App Launcher for Windows 10
 You can pass parameter to URI with `{[number]}`.
 For example, regsiter the URI `https://www.google.co.jp/search?q={1}` with name `g` and enter `g test`, The URI will be extracted as `https://www.google.co.jp/search?q=test`
 
+# Extensions for Extra Folders
+You can pass file extensions extra folder searching for.
+## Extensions format
+```
+extension = "*."<extension-name>
+extensions = <extension> | <extension>"|"<extensions>
+```
+
 # OS
 - Windows 10
 
