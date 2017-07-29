@@ -58,13 +58,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_631FE283B149E8B4D859573F18F04306"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5108006D67944BF295D262FE642A076A"
+        "OwnerKey" = "8:_DB34A4ADABF938FE5BC73B1014EA7EFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DB34A4ADABF938FE5BC73B1014EA7EFC"
+        "OwnerKey" = "8:_5108006D67944BF295D262FE642A076A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_631FE283B149E8B4D859573F18F04306"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -198,7 +198,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.5.0.17593, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:MM1DesktopLauncher, Version=0.6.0.18481, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5108006D67944BF295D262FE642A076A"
@@ -263,11 +263,6 @@
             "AssemblyAsmDisplayName" = "8:LoadingIndicators.WPF, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_CBD417C587ABB5825D06A8EE9A6DF38F"
-                    {
-                    "Name" = "8:LoadingIndicators.WPF.DLL"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:LoadingIndicators.WPF.DLL"
             "TargetName" = "8:"
@@ -294,11 +289,6 @@
             "AssemblyAsmDisplayName" = "8:Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DB34A4ADABF938FE5BC73B1014EA7EFC"
-                    {
-                    "Name" = "8:Hardcodet.Wpf.TaskbarNotification.DLL"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Hardcodet.Wpf.TaskbarNotification.DLL"
             "TargetName" = "8:"
@@ -405,15 +395,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MM1 desktop launcher "
-        "ProductCode" = "8:{B17F0C3A-EBDF-4316-9DE8-3F8315903C9D}"
-        "PackageCode" = "8:{F31BA493-E177-4E4D-9BB0-C9D1AE9218D0}"
+        "ProductCode" = "8:{35157367-ADCE-4E47-9871-71F0E0D287C9}"
+        "PackageCode" = "8:{6090256A-14CC-456A-B696-D93507334FA3}"
         "UpgradeCode" = "8:{6A7653AB-5A4F-418F-BF5B-4111BE2DB75B}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.5.1"
+        "ProductVersion" = "8:0.6.0"
         "Manufacturer" = "8:Msmc"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
