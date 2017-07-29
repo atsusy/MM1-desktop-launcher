@@ -9,7 +9,7 @@ using System.Windows.Data;
 
 namespace DesktopLauncher
 {
-    //public class CustomURIViewModel : ViewModelBase
+    public class CustomURIViewModel : ViewModelBase
     {
         private UriLauncher uriLauncher;
 

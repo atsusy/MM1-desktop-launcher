@@ -92,7 +92,7 @@ namespace DesktopLauncher
                 var regex = new Regex(@"\{(?<no>\d+?)\}");
                 if (!regex.IsMatch(uri))
                 {
-                    return 0;
+                    return 1;
                 }
                 return regex.Matches(uri).Cast<Match>().Select((g) => int.Parse(g.Groups["no"].ToString())).Max() + 1;
             }
