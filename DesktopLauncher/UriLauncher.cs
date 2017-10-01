@@ -114,6 +114,7 @@ namespace DesktopLauncher
                 return;
             }
 
+            parameters = parameters.Select((q) => Uri.EscapeDataString(q)).ToArray();
             await Launcher.LaunchUriAsync(new Uri(string.Format(uri, parameters)));
             Launched++;
         }
@@ -139,17 +140,23 @@ namespace DesktopLauncher
             {
                 var hostName = new Uri(this.uri).Host;
                 var uri = new Uri($"http://www.google.com/s2/favicons?domain={hostName}");
-                var response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
+                try {
+                    var response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
 
-                using (var httpStream = await response.Content.ReadAsStreamAsync())
+                    using (var httpStream = await response.Content.ReadAsStreamAsync())
+                    {
+                        var bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.StreamSource = httpStream;
+                        bitmapImage.EndInit();
+
+                        favicon = bitmapImage;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
+                    }
+                }
+                catch
                 {
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = httpStream;
-                    bitmapImage.EndInit();
 
-                    favicon =  bitmapImage;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
                 }
             }
         }
