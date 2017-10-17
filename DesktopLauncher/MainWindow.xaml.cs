@@ -50,6 +50,7 @@ namespace DesktopLauncher
         private void ShowLauncher()
         { 
             Show();
+            Activate();
             InputText.Focus();
         }
 
@@ -226,7 +227,6 @@ namespace DesktopLauncher
 
         private void Window_Activated(object sender, EventArgs e)
         {
-
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -267,19 +267,22 @@ namespace DesktopLauncher
                 return;
             }
 
-            var keyword = text.Split(" ".ToCharArray()).First();
+            var keyword = text.Split(" ".ToCharArray()).First().ToLower();
             // ## Spec of listing order
             // 1. equals to keyword
             // 2. launched count
-            // 3. forward match
+            // 3. forward match(any word)
             // 4. partial match
             var candidates = entries.Where(en => en.Name.ToLower().Contains(keyword)).OrderByDescending((en) =>
             {
-                if (en.Name.ToLower() == keyword.ToLower())
+                var name = en.Name.ToLower();
+                if (name == keyword)
                 {
                     return int.MaxValue;
                 }
-                return (en.Launched << 1) | (en.Name.ToLower().StartsWith(keyword) ? 1 : 0);
+                var words = name.Split(" ".ToCharArray());
+                var startsWith = words.Where((word) => word.StartsWith(keyword)).Count();
+                return (en.Launched << 1) | (startsWith > 0 ? 1 : 0);
             }).Distinct(new LaunchableEqualityComparer());
             Candidates.DataContext = candidates;
             Candidates.SelectedIndex = 0;
@@ -364,5 +367,10 @@ namespace DesktopLauncher
         {
             ShowLauncher();
         }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            HideLauncher();
+        }        
     }
 }

@@ -21,6 +21,7 @@
         Topmost="True" 
         Activated="Window_Activated" 
         Loaded="Window_Loaded"
+        Deactivated="Window_Deactivated"
         PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
     <Window.Resources>
         <ContextMenu x:Key="TextBoxContextMenu">
