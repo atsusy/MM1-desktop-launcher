@@ -286,7 +286,7 @@ namespace DesktopLauncher
 
             if(candidates.Count() == 0)
             {
-                candidates = new ILaunchable[] { new UriLauncher("Search on Web", $"http://www.bing.com/search?q={keyword}") };
+                candidates = new ILaunchable[] { new UriLauncher("Search on Web", $"http://www.bing.com/search?q={text}") };
             }
 
             Candidates.DataContext = candidates;
