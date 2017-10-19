@@ -87,14 +87,7 @@ namespace DesktopLauncher
 
         private void HotKey_KeyUp(object sender, KeyEventArgs e)
         {
-            var keyConverter = new KeyConverter();
-            var key = keyConverter.ConvertToString(e.Key);
-            var viewModel = FindResource("ViewModel") as OptionsViewModel;
-
-            if (viewModel.HotKeyItems.Select(item => item.Key == key).Count() > 0)
-            {
-                HotKey.SelectedValue = key;
-            }
+            HotKey.SelectedValue = HotKeyConverter.ConvertToString(e.Key);
         }
 
         private void RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

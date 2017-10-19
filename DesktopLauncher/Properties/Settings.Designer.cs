@@ -12,7 +12,7 @@ namespace DesktopLauncher.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -168,6 +168,41 @@ namespace DesktopLauncher.Properties {
             }
             set {
                 this["ExtraExtentions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>A</string>\r\n  <string>B</string>\r\n  <string>C</string>\r\n  <string>CapsLock" +
+            "</string>\r\n  <string>D</string>\r\n  <string>0</string>\r\n  <string>1</string>\r\n  <" +
+            "string>2</string>\r\n  <string>3</string>\r\n  <string>4</string>\r\n  <string>5</stri" +
+            "ng>\r\n  <string>6</string>\r\n  <string>7</string>\r\n  <string>8</string>\r\n  <string" +
+            ">9</string>\r\n  <string>Delete</string>\r\n  <string>Down</string>\r\n  <string>E</st" +
+            "ring>\r\n  <string>End</string>\r\n  <string>F</string>\r\n  <string>F1</string>\r\n  <s" +
+            "tring>F10</string>\r\n  <string>F11</string>\r\n  <string>F12</string>\r\n  <string>F1" +
+            "3</string>\r\n  <string>F14</string>\r\n  <string>F15</string>\r\n  <string>F2</string" +
+            ">\r\n  <string>F3</string>\r\n  <string>F4</string>\r\n  <string>F5</string>\r\n  <strin" +
+            "g>F6</string>\r\n  <string>F7</string>\r\n  <string>F8</string>\r\n  <string>F9</strin" +
+            "g>\r\n  <string>G</string>\r\n  <string>H</string>\r\n  <string>Home</string>\r\n  <stri" +
+            "ng>I</string>\r\n  <string>Insert</string>\r\n  <string>J</string>\r\n  <string>K</str" +
+            "ing>\r\n  <string>L</string>\r\n  <string>Left</string>\r\n  <string>M</string>\r\n  <st" +
+            "ring>N</string>\r\n  <string>NumLock</string>\r\n  <string>O</string>\r\n  <string>;</" +
+            "string>\r\n  <string>/</string>\r\n  <string>[</string>\r\n  <string>]</string>\r\n  <st" +
+            "ring>\\</string>\r\n  <string>,</string>\r\n  <string>=</string>\r\n  <string>-</string" +
+            ">\r\n  <string>.</string>\r\n  <string>`</string>\r\n  <string>P</string>\r\n  <string>P" +
+            "ageDown</string>\r\n  <string>PageUp</string>\r\n  <string>Pause</string>\r\n  <string" +
+            ">Print</string>\r\n  <string>Q</string>\r\n  <string>R</string>\r\n  <string>Right</st" +
+            "ring>\r\n  <string>S</string>\r\n  <string>Scroll</string>\r\n  <string>T</string>\r\n  " +
+            "<string>U</string>\r\n  <string>Up</string>\r\n  <string>V</string>\r\n  <string>W</st" +
+            "ring>\r\n  <string>X</string>\r\n  <string>Y</string>\r\n  <string>Z</string>\r\n  <stri" +
+            "ng>\'</string>\r\n  <string>Tab</string>\r\n  <string>Space</string>\r\n  <string>Backs" +
+            "pace</string>\r\n  <string>Escape</string>\r\n  <string>Enter</string>\r\n  <string>Re" +
+            "turn</string>\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection HotKeys {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["HotKeys"]));
             }
         }
     }

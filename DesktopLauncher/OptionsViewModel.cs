@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -22,7 +20,6 @@ namespace DesktopLauncher
         {
             this.options = options;
             
-            var keyConverter = new KeyConverter();
             var modifiers = (ModifierKeys)options.HotKeyModifiers;
 
             Theme = options.Theme;
@@ -121,7 +118,7 @@ namespace DesktopLauncher
                 if (HotKeyAlt) { keys.Add("Alt"); }
                 if (HotKeyWin) { keys.Add("Win"); }
 
-                keys.Add(HotKeysDictionary[HotKey]);
+                keys.Add(HotKey);
                 return string.Join("+", keys.ToArray());
             }
         }
@@ -172,31 +169,37 @@ namespace DesktopLauncher
             set;
         }
 
+        private Dictionary<string, string> hotKeyDisplayMembers;
+        private Dictionary<string, string> HotKeyDisplayMembers
+        {
+            get
+            {
+                if (hotKeyDisplayMembers == null)
+                {
+                    hotKeyDisplayMembers = new Dictionary<string, string> {
+                        { "CapsLock", "Caps Lock" },
+                        { "Scroll", "Scroll Lock" },
+                        { "NumLock", "Num Lock" },
+                        { "PageUp", "Page Up" },
+                        { "PageDown", "Page Down" },
+                    };
+                }
+                return hotKeyDisplayMembers;
+            }
+        }
+
         public IReadOnlyList<KeyValuePair<string, string>> HotKeyItems
         {
             get
-            {               
-                return HotKeysDictionary
-                    .ToList()
+            {                
+                return Properties.Settings.Default.HotKeys.Cast<string>().ToList()
+                    .Select((hotKey) => new KeyValuePair<string, string>(
+                        hotKey,
+                        HotKeyDisplayMembers.ContainsKey(hotKey) ? HotKeyDisplayMembers[hotKey]: hotKey))
                     .OrderBy(item => item.Value)
                     .ToList()
                     .AsReadOnly();
             }
-        }
-
-        public Dictionary<string, string> HotKeysDictionary
-        {
-            get
-            {
-                var resourceManager = Properties.HotKeys.ResourceManager;
-                var resourceSet = resourceManager.GetResourceSet(
-                    CultureInfo.CurrentCulture,
-                        true,
-                        true
-                    ).Cast<DictionaryEntry>();
-                return resourceSet
-                    .ToDictionary(r => r.Key.ToString(), r => r.Value.ToString());
-            }            
         }
 
         public void Save()
@@ -204,7 +207,6 @@ namespace DesktopLauncher
             options.Theme = Theme;
             options.Opacity = Opacity;
 
-            var keyConverter = new KeyConverter();
             options.HotKeyCharacter = HotKey;
 
             var modifiers = 0;

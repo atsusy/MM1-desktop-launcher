@@ -102,6 +102,7 @@
     <Compile Include="AliasViewModel.cs" />
     <Compile Include="CustomURIViewModel.cs" />
     <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="HotKeyConverter.cs" />
     <Compile Include="LaunchableEqualityComparer.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="PercentageStringConverter.cs" />
@@ -148,20 +149,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\HotKeys.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HotKeys.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\HotKeys.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>HotKeys.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>

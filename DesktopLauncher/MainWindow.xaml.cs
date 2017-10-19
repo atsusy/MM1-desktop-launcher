@@ -83,10 +83,9 @@ namespace DesktopLauncher
                 hotKey.Pressed -= HotKey_Pressed;
                 hotKey.Dispose();
             }
-            var keyConverter = new KeyConverter();
             try
             {
-                hotKey = new HotKey.HotKey(this, (ModifierKeys)settings.HotKeyModifiers, (Key)keyConverter.ConvertFromString(settings.HotKeyCharacter));
+                hotKey = new HotKey.HotKey(this, (ModifierKeys)settings.HotKeyModifiers, HotKeyConverter.ConvertFromString(settings.HotKeyCharacter));
                 hotKey.Pressed += HotKey_Pressed;
             }
             catch
