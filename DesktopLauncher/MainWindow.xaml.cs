@@ -283,6 +283,12 @@ namespace DesktopLauncher
                 var startsWith = words.Where((word) => word.StartsWith(keyword)).Count();
                 return (en.Launched << 1) | (startsWith > 0 ? 1 : 0);
             }).Distinct(new LaunchableEqualityComparer());
+
+            if(candidates.Count() == 0)
+            {
+                candidates = new ILaunchable[] { new UriLauncher("Search on Web", $"http://www.bing.com/search?q={keyword}") };
+            }
+
             Candidates.DataContext = candidates;
             Candidates.SelectedIndex = 0;
 
