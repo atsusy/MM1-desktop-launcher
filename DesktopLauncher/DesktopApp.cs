@@ -1,5 +1,4 @@
-﻿using Smdn.Windows.UserInterfaces.Shells;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -98,16 +97,6 @@ namespace DesktopLauncher
             }
 
             this.name = name;
-
-            if(Path.GetExtension(executionPath) == ".lnk")
-            {
-                var targetPath = new ShellLink(executionPath).TargetPath;
-                if (targetPath != null && targetPath.Length > 0)
-                {
-                    executionPath = targetPath;
-                }
-            }
-
             this.executionPath = executionPath;
         }
 
@@ -149,8 +138,8 @@ namespace DesktopLauncher
 
         private void LaunchAsync(string parameters, bool runAs)
         {
-            var args = parameters.Split(" ".ToCharArray());            
-            var pi = new ProcessStartInfo(executionPath, string.Join(" ", args.Skip(1).ToArray()));
+            var args = parameters.Split(" ".ToCharArray());
+            var pi = new ProcessStartInfo(executionPath, string.Join(" ", args.Skip(1).ToArray())) { UseShellExecute = true };
             if(runAs) { pi.Verb = "runas"; };
             try
             {
